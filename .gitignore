@@ -1,0 +1,23 @@
+node_modules
+dist
+.output
+.wrangler
+.impeccable/config.local.json
+.impeccable/review
+*.local
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+scripts/chess/.engine
+scripts/chess/.cache
+scripts/chess/out
+
+# Issue sources (unreleased puzzles and solutions)
+issues/
+
+# Local logs and caches
+.dev.log
+__pycache__/
+
+# Local puzzle-building scripts and outputs
+scripts/

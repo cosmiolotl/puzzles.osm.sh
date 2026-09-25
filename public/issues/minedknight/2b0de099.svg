@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="540" height="540" viewBox="-0.5 -0.5 541 541" role="img" aria-labelledby="title desc">
+<title id="title">Knight in a minefield</title>
+<desc id="desc">9 by 9 board with 17 mines. S marks the top-left start; F marks the bottom-right finish. Shaded numbered cells are initially revealed to the knight. Other safe cells are blank.</desc>
+<g font-family="'Fira Code',monospace" text-anchor="middle" fill="#121b35">
+<rect x="0" y="0" width="60" height="60" fill="#f0d9df" stroke="#c9c6ba"/>
+<text x="30" y="38" font-size="23">0</text>
+<rect x="2" y="2" width="56" height="56" fill="none" stroke="#121b35" stroke-width="2"/>
+<text x="51" y="14" font-size="11" font-weight="bold">S</text>
+<rect x="60" y="0" width="60" height="60" fill="#ebe8df" stroke="#c9c6ba"/>
+<text x="90" y="38" font-size="23">0</text>
+<rect x="120" y="0" width="60" height="60" fill="#ebe8df" stroke="#c9c6ba"/>
+<text x="150" y="38" font-size="23">0</text>
+<rect x="180" y="0" width="60" height="60" fill="#ebe8df" stroke="#c9c6ba"/>
+<text x="210" y="38" font-size="23">2</text>
+<rect x="240" y="0" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<path d="M256,30h28 M270,16v28 M260,20l20,20 M260,40l20,-20" stroke="#121b35" stroke-width="2"/>
+<circle cx="270" cy="30" r="9" fill="#121b35"/>
+<rect x="300" y="0" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="360" y="0" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="420" y="0" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<path d="M436,30h28 M450,16v28 M440,20l20,20 M440,40l20,-20" stroke="#121b35" stroke-width="2"/>
+<circle cx="450" cy="30" r="9" fill="#121b35"/>
+<rect x="480" y="0" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="0" y="60" width="60" height="60" fill="#ebe8df" stroke="#c9c6ba"/>
+<text x="30" y="98" font-size="23">1</text>
+<rect x="60" y="60" width="60" height="60" fill="#ebe8df" stroke="#c9c6ba"/>
+<text x="90" y="98" font-size="23">1</text>
+<rect x="120" y="60" width="60" height="60" fill="#ebe8df" stroke="#c9c6ba"/>
+<text x="150" y="98" font-size="23">1</text>
+<rect x="180" y="60" width="60" height="60" fill="#ebe8df" stroke="#c9c6ba"/>
+<text x="210" y="98" font-size="23">2</text>
+<rect x="240" y="60" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<path d="M256,90h28 M270,76v28 M260,80l20,20 M260,100l20,-20" stroke="#121b35" stroke-width="2"/>
+<circle cx="270" cy="90" r="9" fill="#121b35"/>
+<rect x="300" y="60" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<path d="M316,90h28 M330,76v28 M320,80l20,20 M320,100l20,-20" stroke="#121b35" stroke-width="2"/>
+<circle cx="330" cy="90" r="9" fill="#121b35"/>
+<rect x="360" y="60" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="420" y="60" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="480" y="60" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="0" y="120" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="60" y="120" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<path d="M76,150h28 M90,136v28 M80,140l20,20 M80,160l20,-20" stroke="#121b35" stroke-width="2"/>
+<circle cx="90" cy="150" r="9" fill="#121b35"/>
+<rect x="120" y="120" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="180" y="120" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="240" y="120" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="300" y="120" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="360" y="120" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="420" y="120" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="480" y="120" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="0" y="180" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<path d="M16,210h28 M30,196v28 M20,200l20,20 M20,220l20,-20" stroke="#121b35" stroke-width="2"/>
+<circle cx="30" cy="210" r="9" fill="#121b35"/>
+<rect x="60" y="180" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="120" y="180" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="180" y="180" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="240" y="180" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="300" y="180" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="360" y="180" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="420" y="180" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<path d="M436,210h28 M450,196v28 M440,200l20,20 M440,220l20,-20" stroke="#121b35" stroke-width="2"/>
+<circle cx="450" cy="210" r="9" fill="#121b35"/>
+<rect x="480" y="180" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="0" y="240" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="60" y="240" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="120" y="240" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="180" y="240" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<path d="M196,270h28 M210,256v28 M200,260l20,20 M200,280l20,-20" stroke="#121b35" stroke-width="2"/>
+<circle cx="210" cy="270" r="9" fill="#121b35"/>
+<rect x="240" y="240" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="300" y="240" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="360" y="240" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="420" y="240" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="480" y="240" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="0" y="300" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="60" y="300" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="120" y="300" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="180" y="300" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="240" y="300" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<path d="M256,330h28 M270,316v28 M260,320l20,20 M260,340l20,-20" stroke="#121b35" stroke-width="2"/>
+<circle cx="270" cy="330" r="9" fill="#121b35"/>
+<rect x="300" y="300" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="360" y="300" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<path d="M376,330h28 M390,316v28 M380,320l20,20 M380,340l20,-20" stroke="#121b35" stroke-width="2"/>
+<circle cx="390" cy="330" r="9" fill="#121b35"/>
+<rect x="420" y="300" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<path d="M436,330h28 M450,316v28 M440,320l20,20 M440,340l20,-20" stroke="#121b35" stroke-width="2"/>
+<circle cx="450" cy="330" r="9" fill="#121b35"/>
+<rect x="480" y="300" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="0" y="360" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="60" y="360" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="120" y="360" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="180" y="360" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="240" y="360" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="300" y="360" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="360" y="360" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<path d="M376,390h28 M390,376v28 M380,380l20,20 M380,400l20,-20" stroke="#121b35" stroke-width="2"/>
+<circle cx="390" cy="390" r="9" fill="#121b35"/>
+<rect x="420" y="360" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="480" y="360" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="0" y="420" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="60" y="420" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="120" y="420" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<path d="M136,450h28 M150,436v28 M140,440l20,20 M140,460l20,-20" stroke="#121b35" stroke-width="2"/>
+<circle cx="150" cy="450" r="9" fill="#121b35"/>
+<rect x="180" y="420" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<path d="M196,450h28 M210,436v28 M200,440l20,20 M200,460l20,-20" stroke="#121b35" stroke-width="2"/>
+<circle cx="210" cy="450" r="9" fill="#121b35"/>
+<rect x="240" y="420" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="300" y="420" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="360" y="420" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<path d="M376,450h28 M390,436v28 M380,440l20,20 M380,460l20,-20" stroke="#121b35" stroke-width="2"/>
+<circle cx="390" cy="450" r="9" fill="#121b35"/>
+<rect x="420" y="420" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="480" y="420" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="0" y="480" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<path d="M16,510h28 M30,496v28 M20,500l20,20 M20,520l20,-20" stroke="#121b35" stroke-width="2"/>
+<circle cx="30" cy="510" r="9" fill="#121b35"/>
+<rect x="60" y="480" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="120" y="480" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="180" y="480" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="240" y="480" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="300" y="480" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="360" y="480" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<path d="M376,510h28 M390,496v28 M380,500l20,20 M380,520l20,-20" stroke="#121b35" stroke-width="2"/>
+<circle cx="390" cy="510" r="9" fill="#121b35"/>
+<rect x="420" y="480" width="60" height="60" fill="#fbfaf6" stroke="#c9c6ba"/>
+<rect x="480" y="480" width="60" height="60" fill="#d9e8d6" stroke="#c9c6ba"/>
+<rect x="482" y="482" width="56" height="56" fill="none" stroke="#121b35" stroke-width="2"/>
+<text x="531" y="494" font-size="11" font-weight="bold">F</text>
+</g>
+</svg>

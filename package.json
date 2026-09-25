@@ -1,0 +1,51 @@
+{
+  "name": "puzzles",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build && tsc --noEmit",
+    "preview": "vite preview",
+    "deploy": "bun run build && wrangler deploy",
+    "cf-typegen": "wrangler types",
+    "new-issue": "bun scripts/new-issue.ts",
+    "check:puzzles": "node --experimental-strip-types scripts/check-puzzles.ts",
+    "chess:great-moves": "node --experimental-strip-types scripts/chess/find-great-moves.ts",
+    "db:migrate:local": "wrangler d1 migrations apply puzzles --local",
+    "db:migrate": "wrangler d1 migrations apply puzzles --remote"
+  },
+  "dependencies": {
+    "@fontsource/fira-code": "^5.3.0",
+    "@radix-ui/react-slot": "^1.2.3",
+    "@tanstack/react-router": "^1.170.38",
+    "@tanstack/react-start": "^1.168.56",
+    "chess.js": "^1.4.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "katex": "^0.18.7",
+    "lucide-react": "^0.544.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-markdown": "^10.1.0",
+    "rehype-katex": "^7.0.1",
+    "remark-breaks": "^4.0.0",
+    "remark-gfm": "^4.0.1",
+    "remark-math": "^6.0.0",
+    "tailwind-merge": "^3.3.1",
+    "yaml": "^2.9.1"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.57.0",
+    "@cloudflare/workers-types": "^5.20260921.1",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^24.3.0",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "playwright": "^1.63.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.2",
+    "vite": "^8.3.0",
+    "wrangler": "^4.136.0"
+  }
+}

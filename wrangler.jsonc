@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "puzzles-osm-sh",
+  "account_id": "d55246711aed4046bec8c121bf30c527",
+  "routes": [{ "pattern": "puzzles.osm.sh", "custom_domain": true }],
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "@tanstack/react-start/server-entry",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "puzzles",
+      "database_id": "4f6a0804-b604-45e4-bab3-2e236c86fb57",
+      "migrations_dir": "migrations"
+    }
+  ]
+}

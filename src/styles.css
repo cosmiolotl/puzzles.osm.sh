@@ -1,0 +1,435 @@
+@import 'tailwindcss';
+@import '@fontsource/fira-code/latin-400.css';
+@import '@fontsource/fira-code/latin-500.css';
+@import '@fontsource/fira-code/latin-700.css';
+@import 'katex/dist/katex.min.css';
+
+/*
+  The osm.sh terminal, in daylight.
+  One monospace grid, hairline rules, navy ink, rose accent.
+*/
+:root {
+  --ground: #f4f2ec;
+  --ground-2: #ebe8df;
+  --ground-3: #e1ded3;
+  --ink: #121b35;
+  --ink-2: #4a5170;
+  --ink-3: #676d8a;
+  --rule: #c9c6ba;
+  --rose: #c67b8b;
+  --rose-ink: #9a4d62;
+  --rose-wash: #f0d9df;
+  --plus: #2f6b3d;
+  --plus-wash: #d9e8d6;
+  --minus: #a63a3a;
+  --minus-wash: #f1d6d2;
+  --square-dark: #dad7ca;
+  --square-light: #fbfaf6;
+
+  /* shadcn roles, mapped onto the world */
+  --background: var(--ground);
+  --foreground: var(--ink);
+  --card: var(--ground);
+  --card-foreground: var(--ink);
+  --popover: var(--ground);
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: var(--ground);
+  --secondary: var(--ground-2);
+  --secondary-foreground: var(--ink);
+  --muted: var(--ground-2);
+  --muted-foreground: var(--ink-3);
+  --accent: var(--rose-wash);
+  --accent-foreground: var(--ink);
+  --destructive: var(--minus);
+  --border: var(--rule);
+  --input: var(--rule);
+  --ring: var(--rose);
+  --radius: 0px;
+}
+
+@theme inline {
+  --font-mono: 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --color-ground: var(--ground);
+  --color-ground-2: var(--ground-2);
+  --color-ground-3: var(--ground-3);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-rule: var(--rule);
+  --color-rose: var(--rose);
+  --color-rose-ink: var(--rose-ink);
+  --color-rose-wash: var(--rose-wash);
+  --color-plus: var(--plus);
+  --color-plus-wash: var(--plus-wash);
+  --color-minus: var(--minus);
+  --color-minus-wash: var(--minus-wash);
+  --color-square-dark: var(--square-dark);
+  --color-square-light: var(--square-light);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    color-scheme: light;
+    background: var(--ground);
+    font-family: var(--font-mono);
+    font-size: 16px;
+    line-height: 1.5;
+    font-variant-ligatures: none;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    color: var(--ink);
+    background: var(--ground);
+  }
+
+  ::selection {
+    background: var(--rose);
+    color: var(--ground);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--rose-ink);
+    outline-offset: 1px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--ground-2);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--rule);
+    border: 2px solid var(--ground-2);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--ink-3);
+  }
+  * {
+    scrollbar-color: var(--rule) var(--ground-2);
+    scrollbar-width: thin;
+  }
+
+  input,
+  button {
+    font: inherit;
+    color: inherit;
+  }
+  input {
+    caret-color: var(--rose-ink);
+  }
+  input::placeholder {
+    color: var(--ink-3);
+  }
+
+  a {
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
+  }
+}
+
+@layer components {
+  /* A rule with a label sitting in it:  ── label ──────── */
+  .rule-line {
+    display: flex;
+    align-items: center;
+    gap: 0.75ch;
+    white-space: nowrap;
+  }
+  .rule-line::before,
+  .rule-line::after {
+    content: '';
+    height: 1px;
+    background: var(--rule);
+    flex: 0 0 1.5ch;
+  }
+  .rule-line::after {
+    flex: 1 1 auto;
+  }
+  .rule-line.rule-line-center::before {
+    flex: 1 1 auto;
+  }
+  /* Two ends: a .rule-fill span carries the long rule, both edges keep stubs. */
+  .rule-line.rule-line-split::after {
+    flex: 0 0 1.5ch;
+  }
+  .rule-fill {
+    height: 1px;
+    background: var(--rule);
+    flex: 1 1 auto;
+    min-width: 3ch;
+  }
+  /* A rule whose label may wrap: the trailing line follows the last row. */
+  .rule-line.rule-line-wrap {
+    flex-wrap: wrap;
+    white-space: normal;
+    row-gap: 0.35em;
+  }
+  .rule-line.rule-line-wrap::after {
+    flex: 1 1 3ch;
+    min-width: 3ch;
+  }
+  /* Narrow screens: the stub stays inline with the first words and the
+     trailing rule runs full width beneath the last row. */
+  @media (max-width: 639px) {
+    .rule-line.rule-line-wrap {
+      display: block;
+    }
+    .rule-line.rule-line-wrap::before {
+      display: inline-block;
+      width: 1.5ch;
+      vertical-align: middle;
+      margin-right: 0.75ch;
+    }
+    .rule-line.rule-line-wrap::after {
+      display: block;
+      width: 100%;
+      margin-top: 0.5em;
+    }
+  }
+
+  /* A wrong reply: the row flashes minus and settles, like a struck ledger line. */
+  .reply-wrong {
+    animation: reply-wrong 900ms var(--ease-out-expo) both;
+  }
+  @keyframes reply-wrong {
+    0% {
+      background: var(--minus-wash);
+    }
+    40% {
+      background: var(--minus-wash);
+    }
+    100% {
+      background: transparent;
+    }
+  }
+
+  /* Statement and solution prose, set on the grid. */
+  .prose-mono {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--ink);
+    min-width: 0;
+    max-width: 100%;
+  }
+  .prose-mono > * + * {
+    margin-top: 1em;
+  }
+  .prose-mono p {
+    max-width: 68ch;
+  }
+  .prose-mono strong {
+    font-weight: 700;
+  }
+  .prose-mono em {
+    font-style: italic;
+  }
+  .prose-mono a {
+    color: var(--rose-ink);
+  }
+  .prose-mono a:hover {
+    color: var(--ink);
+  }
+  .prose-mono code {
+    background: var(--ground-2);
+    padding: 0 0.3ch;
+  }
+  .prose-mono pre {
+    background: var(--ground-2);
+    padding: 0.75rem 1rem;
+    overflow-x: auto;
+  }
+  .prose-mono ul,
+  .prose-mono ol {
+    padding-left: 3ch;
+  }
+  .prose-mono ul {
+    list-style: '- ';
+  }
+  .prose-mono ol {
+    list-style: decimal;
+  }
+  .prose-mono li + li {
+    margin-top: 0.25em;
+  }
+  .prose-mono blockquote {
+    border-left: 1px solid var(--rule);
+    padding-left: 1.5ch;
+    color: var(--ink-2);
+  }
+  .prose-mono table {
+    border-collapse: collapse;
+    font-variant-numeric: tabular-nums;
+  }
+  .prose-mono th,
+  .prose-mono td {
+    border: 1px solid var(--rule);
+    padding: 0.25em 1ch;
+    text-align: left;
+  }
+  .prose-mono th {
+    font-weight: 500;
+    background: var(--ground-2);
+  }
+  .prose-mono hr {
+    border: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .prose-mono h1,
+  .prose-mono h2,
+  .prose-mono h3 {
+    font-weight: 500;
+    margin-top: 1.5em;
+  }
+
+  /* Ledger line entrance: types in from the left. */
+  .ledger-in {
+    animation: ledger-in 220ms var(--ease-out-expo) both;
+  }
+  @keyframes ledger-in {
+    from {
+      clip-path: inset(0 100% 0 0);
+      opacity: 0.4;
+    }
+    to {
+      clip-path: inset(0 0 0 0);
+      opacity: 1;
+    }
+  }
+
+  /* A rejected move: struck through, then settles at low opacity. */
+  .ledger-struck {
+    animation: ledger-struck 900ms var(--ease-out-expo) both;
+  }
+  @keyframes ledger-struck {
+    0% {
+      opacity: 1;
+      background: var(--minus-wash);
+    }
+    40% {
+      opacity: 1;
+      background: var(--minus-wash);
+    }
+    100% {
+      opacity: 0.78;
+      background: transparent;
+    }
+  }
+
+  .board-shake {
+    animation: board-shake 240ms var(--ease-out-expo) both;
+  }
+  @keyframes board-shake {
+    0% {
+      transform: translateX(0);
+    }
+    30% {
+      transform: translateX(-3px);
+    }
+    60% {
+      transform: translateX(3px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  .cursor-blink {
+    animation: cursor-blink 1s steps(2, start) infinite;
+  }
+  @keyframes cursor-blink {
+    to {
+      visibility: hidden;
+    }
+  }
+
+  .split-in {
+    animation: split-in 360ms var(--ease-out-expo) both;
+  }
+  @keyframes split-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ledger-in,
+  .ledger-struck,
+  .reply-wrong,
+  .board-shake,
+  .split-in {
+    animation-duration: 1ms;
+  }
+  .piece-track {
+    transition: none !important;
+  }
+}
+
+/* KaTeX overrides stay unlayered so they win over katex.min.css. */
+.prose-mono .katex {
+  font-size: 1.08em;
+}
+.prose-mono .katex-display {
+  margin: 1.25em 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.25em 0;
+  max-width: 100%;
+}
+.prose-mono .katex-display > .katex {
+  text-align: left;
+  padding-left: 2ch;
+  width: max-content;
+  max-width: none;
+}
+@media (max-width: 639px) {
+  .prose-mono .katex-display {
+    font-size: 0.9em;
+  }
+  .prose-mono .katex-display > .katex {
+    padding-left: 0;
+  }
+}

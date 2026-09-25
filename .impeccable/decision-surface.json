@@ -1,0 +1,142 @@
+{
+  "title": "Choose the composition of the chess solving view",
+  "question": "The world is settled: osm.sh's terminal grammar, rendered light. This round is composition only. The roll dealt these three structures; lock one, steer, or re-roll.",
+  "options": [
+    {
+      "id": "ledger",
+      "label": "Transformation ledger",
+      "kicker": "THE ROLL",
+      "lineage": "unified diff output, read in a light terminal",
+      "thesis": "A positional transformation is a diff: every move you play writes a minus and a plus line, and the solved puzzle shows before and after side by side.",
+      "palette": ["#f5f3ec", "#121b35", "#c67b8b", "#4f7a55", "#b04a4a"],
+      "materials": ["monospace character grid", "box-drawing rules", "diff ink"],
+      "viewport": "Board on the left at full column height, pieces as glyphs on the grid. Right column: the prompt as a comment line at top, then a ledger that fills as you play (‘− Nf3  + Nd5’, opponent replies indented), a wrong move appearing struck through and fading. Status bar across the bottom: puzzle id, move n of m, keys. On solve the ledger collapses and the board splits into before | after with changed squares tinted.",
+      "risk": "Non-programmer friends may read the diff marks as an in-joke; the notation must read as chess first, and the before/after split must be the payoff, not the gimmick.",
+      "wireframe": {"cols": 12, "rows": 10, "regions": [
+        {"label": "board 8×8", "x": 0, "y": 0, "w": 6, "h": 9, "accent": true},
+        {"label": "# prompt", "x": 6, "y": 0, "w": 6, "h": 2},
+        {"label": "ledger  − / +", "x": 6, "y": 2, "w": 6, "h": 7},
+        {"label": "status bar", "x": 0, "y": 9, "w": 12, "h": 1}
+      ]}
+    },
+    {
+      "id": "score",
+      "label": "Game score column",
+      "lineage": "a chess periodical's printed game score, set on a typewriter",
+      "thesis": "The board sits above a single typewritten score column; your moves and the replies type themselves in, and the annotation appears beneath once the idea is complete.",
+      "palette": ["#f5f3ec", "#121b35", "#c67b8b"],
+      "materials": ["monospace character grid", "hairline rules", "typewriter score"],
+      "viewport": "Prompt as a one-line headnote. Board centered beneath it at generous size. Below the board, a numbered score column (‘1. Nd5  Bxd5  2. exd5’) that fills as you play, with an active-step marker; a replay cursor lets you step back through the line. On solve, the explanation sets in a measured prose column under the score. Status line last.",
+      "risk": "The vertical stack pushes the score and explanation below the fold on a laptop; wrong-move feedback has to live at the board, never down the page.",
+      "wireframe": {"cols": 12, "rows": 12, "regions": [
+        {"label": "headnote prompt", "x": 2, "y": 0, "w": 8, "h": 1},
+        {"label": "board 8×8", "x": 3, "y": 1, "w": 6, "h": 6, "accent": true},
+        {"label": "1. …  score column", "x": 3, "y": 7, "w": 6, "h": 2},
+        {"label": "annotation (after solve)", "x": 2, "y": 9, "w": 8, "h": 2},
+        {"label": "status line", "x": 0, "y": 11, "w": 12, "h": 1}
+      ]},
+      "raised": [{"from": "orizuru crane sequence", "raise": "Every step in the line is recoverable: the score column is a replayable, numbered sequence with one marker on the active step, not a log."}]
+    },
+    {
+      "id": "bare",
+      "label": "Bare board",
+      "lineage": "a correspondence chess postcard: position, one line of text, nothing else",
+      "thesis": "Nothing but the board and one status line; prompt above, feedback and progress below, and the explanation arrives as a card only once you have solved it.",
+      "palette": ["#f5f3ec", "#121b35", "#c67b8b"],
+      "materials": ["monospace character grid", "single rule"],
+      "viewport": "The board at the largest size the viewport allows, centered. One line above it carries the prompt. One line below carries state: ‘your move’, ‘not that’, ‘2 of 3’, ‘solved’. On solve, an explanation card slides up from the status line and the board dims behind it.",
+      "risk": "A multi-move sequence has no visible history, and the explanation has nowhere natural to sit without covering the board it explains.",
+      "wireframe": {"cols": 12, "rows": 10, "regions": [
+        {"label": "prompt", "x": 2, "y": 0, "w": 8, "h": 1},
+        {"label": "board 8×8", "x": 2, "y": 1, "w": 8, "h": 8, "accent": true},
+        {"label": "status line", "x": 2, "y": 9, "w": 8, "h": 1}
+      ]}
+    },
+    {
+      "id": "challenger-orizuru",
+      "label": "Fold sequence",
+      "verdict": "competitive",
+      "lineage": "orizuru crane fold sequence, thirty-two numbered steps on one sheet",
+      "thesis": "The solve as a numbered fold sequence: one sheet, one marker on the active step, every earlier step recoverable.",
+      "palette": ["#f5f3ec", "#121b35", "#c67b8b"],
+      "materials": ["numbered margin column", "single continuous sheet"],
+      "viewport": "Board as the sheet, a strict numbered margin column of steps beside it, one marker on the active step.",
+      "case": "Its step topology fuses cleanly into the score column and is already donated there; on its own it loses narrowly on chess clarity.",
+      "risk": "Read literally it becomes a tutorial stepper, which is not how a puzzle feels.",
+      "hero": "https://impeccable.style/worlds/cards/paper-folds-pleats-deployable-orizuru-crane-sequence-hero.webp"
+    },
+    {
+      "id": "challenger-ascii",
+      "label": "ASCII live scene",
+      "verdict": "declined",
+      "lineage": "typewriter-character scene renders",
+      "thesis": "The whole view is one live glyph grid.",
+      "palette": ["#f5f3ec", "#121b35"],
+      "materials": ["single-ink glyph density"],
+      "viewport": "A board rendered as luminance glyphs.",
+      "case": "Its identity is already the committed world; as a structure it adds nothing to the task.",
+      "kept": "The board is text on one grid, selectable, never an image.",
+      "risk": "Pure novelty over a task surface.",
+      "hero": "https://impeccable.style/worlds/cards/medium-native-ascii-live-scene-render-hero.webp"
+    },
+    {
+      "id": "challenger-seven-segment",
+      "label": "Seven-segment mask",
+      "verdict": "declined",
+      "lineage": "alarm clocks and scoreboards",
+      "thesis": "Fixed cells, only which segments light changes.",
+      "palette": ["#f5f3ec", "#121b35", "#c67b8b"],
+      "materials": ["ghost cells"],
+      "viewport": "Move counter as a segment display.",
+      "case": "Loses both axes: nothing in the solve is a numeric readout.",
+      "kept": "Absence drawn deliberately: empty squares and unplayed steps are designed, not blank.",
+      "risk": "Costume.",
+      "hero": "https://impeccable.style/worlds/cards/signals-instruments-seven-segment-alarm-clock-hero.webp"
+    },
+    {
+      "id": "challenger-ticket",
+      "label": "Ticket wallet",
+      "verdict": "declined",
+      "lineage": "jet-age airline coupon books",
+      "thesis": "Each move a tear-off coupon.",
+      "palette": ["#f5f3ec", "#121b35", "#b04a4a"],
+      "materials": ["coupon stock", "void stamp"],
+      "viewport": "A coupon per move.",
+      "case": "Loses both axes: friends solving a puzzle do not identify with travel paperwork.",
+      "kept": "Nothing disappears, it cancels: a wrong move stays visible, struck, in the ledger.",
+      "risk": "Costume.",
+      "hero": "https://impeccable.style/worlds/cards/vernacular-ephemera-jet-age-ticket-wallet-hero.webp"
+    },
+    {
+      "id": "challenger-metro",
+      "label": "Metro tiles",
+      "verdict": "declined",
+      "lineage": "flat typographic tile panoramas",
+      "thesis": "Type is the interface, tiles are the doors.",
+      "palette": ["#f5f3ec", "#121b35", "#c67b8b"],
+      "materials": ["flat tiles"],
+      "viewport": "Board as a tile panorama.",
+      "case": "Loses both axes: breaks the monospace grid the brand commits to.",
+      "kept": "Chrome deleted: no borders or button frames the grid does not need.",
+      "risk": "Identity conflict.",
+      "hero": "https://impeccable.style/worlds/cards/digital-design-canon-metro-typographic-tiles-hero.webp"
+    },
+    {
+      "id": "challenger-tensegrity",
+      "label": "Tensegrity column",
+      "verdict": "declined",
+      "lineage": "kinetic tension sculpture with engineering labels",
+      "thesis": "Trace every force to its counterforce.",
+      "palette": ["#f5f3ec", "#121b35", "#b04a4a"],
+      "materials": ["leader lines", "force labels"],
+      "viewport": "Pieces as nodes with leader-line annotations.",
+      "case": "Loses both axes: annotating tensions on the board would spoil the puzzle.",
+      "kept": "After solving, the explanation may pin notes to squares with leader lines.",
+      "risk": "Spoilers by design.",
+      "hero": "https://impeccable.style/worlds/cards/kinetic-sculpture-automata-tensegrity-breathing-column-hero.webp"
+    }
+  ],
+  "reroll": true,
+  "steer": true,
+  "buildPath": {"value": "code", "toggle": false}
+}
