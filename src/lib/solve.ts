@@ -13,7 +13,6 @@ export interface TrackedPiece {
 export interface Ply {
   id: string
   by: 'solver' | 'reply'
-  /** Solver-move index this ply belongs to (0-based). */
   step: number
   san: string
   from: Square
@@ -22,7 +21,6 @@ export interface Ply {
   color: Color
   captured?: PieceSymbol
   promotion?: PieceSymbol
-  /** Rook movement on castling. */
   rook?: { from: Square; to: Square }
   fenAfter: string
 }
@@ -43,14 +41,12 @@ export interface SolveState {
   puzzle: Puzzle
   fen: string
   status: Status
-  /** Number of solver moves played correctly. */
   step: number
   plies: Ply[]
   rejected: Rejected[]
   selected: Square | null
   initialTracks: TrackedPiece[]
   tracks: TrackedPiece[]
-  /** During replay after solving: how many plies are shown. */
   replayIndex: number
   /** Increments on every rejected attempt so the board can re-trigger its shake. */
   shake: number
@@ -89,7 +85,6 @@ export function tracksFromFen(fen: string): TrackedPiece[] {
 export function applyPlyToTracks(tracks: TrackedPiece[], ply: Ply): TrackedPiece[] {
   let next = tracks
   if (ply.captured) {
-    // En passant captures a pawn that is not on the destination square.
     const capSquare: Square =
       ply.piece === 'p' && ply.from[0] !== ply.to[0] && !tracks.some((t) => t.square === ply.to)
         ? ((ply.to[0] + ply.from[1]) as Square)
@@ -156,7 +151,6 @@ function plyFromMove(move: Move, by: Ply['by'], step: number, fenAfter: string):
   }
 }
 
-/** Legal destination squares for the piece on `square`, in the current position. */
 export function legalTargets(fen: string, square: Square): { to: Square; capture: boolean }[] {
   const chess = new Chess(fen)
   return chess
@@ -165,7 +159,6 @@ export function legalTargets(fen: string, square: Square): { to: Square; capture
 }
 
 /**
- * Normalise text typed at the status line into a from/to pair.
  * Accepts SAN ("Nf1", "O-O", "exd5", "e8=Q") and coordinates ("d2f1", "e7e8q").
  */
 export function parseCommand(
@@ -200,7 +193,6 @@ export function reduceSolve(state: SolveState, action: SolveAction): SolveState 
       try {
         move = chess.move({ from: action.from, to: action.to, promotion: action.promotion })
       } catch {
-        // Not a legal move: keep the selection, nothing else happens.
         return { ...state, selected: null }
       }
       const { puzzle, step } = state

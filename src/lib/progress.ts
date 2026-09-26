@@ -1,7 +1,5 @@
 import { useSyncExternalStore } from 'react'
 
-// Solved puzzles live in localStorage as { [slug]: ISO timestamp of first solve }.
-// Nothing leaves the browser; clearing site data clears progress.
 const KEY = 'puzzles.osm.sh:solved'
 
 export type Solved = Record<string, string>
@@ -53,7 +51,6 @@ function subscribe(listener: () => void) {
   }
 }
 
-/** Solved map, empty during SSR and hydration so markup matches. */
 export function useSolved(): Solved {
   return useSyncExternalStore(subscribe, read, () => EMPTY)
 }

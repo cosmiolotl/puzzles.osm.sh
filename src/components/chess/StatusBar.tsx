@@ -12,12 +12,6 @@ interface StatusBarProps {
   hints: { key: string; label: string }[]
 }
 
-/*
-  The bottom status line of the terminal: inverted, segments separated by
-  rules. One row on desktop; below that it wraps into two rows so the
-  progress and the message are never clipped. The command field is the
-  keyboard way to move.
-*/
 export const StatusBar = forwardRef<HTMLInputElement, StatusBarProps>(function StatusBar(
   { slug, sideLabel, progress, message, messageTone = 'plain', canType, onCommand, hints },
   inputRef,

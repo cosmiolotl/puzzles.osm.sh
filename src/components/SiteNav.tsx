@@ -5,14 +5,8 @@ export type Section = 'monthly' | 'chess'
 
 const item = 'no-underline hover:underline transition-colors duration-150'
 const idle = 'text-ink-2 hover:text-rose-ink'
-// Color is not the only carrier: the current item is also weighted and underlined.
 const current = 'text-ink font-medium underline decoration-rose decoration-2 underline-offset-[0.4em]'
 
-/*
-  One header for every page. The two sections sit together on the left,
-  split by a box-drawing bar; the chess archive holds the far end of the
-  rule while you are in chess. "chess" always opens this month's position.
-*/
 export function SiteNav({ section, archive = false }: { section?: Section; archive?: boolean }) {
   return (
     <header className="px-4 sm:px-6 pt-4">

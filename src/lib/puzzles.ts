@@ -14,8 +14,6 @@ export interface Puzzle {
   author: string
 }
 
-// One file per puzzle in public/puzzles/<slug>.md, parsed at build time by the
-// chess-puzzles plugin in vite.config.ts. The format is in the README.
 const files = import.meta.glob<Puzzle>('/public/puzzles/*.md', { query: '?puzzle', import: 'default', eager: true })
 
 export const puzzles: Puzzle[] = Object.values(files)

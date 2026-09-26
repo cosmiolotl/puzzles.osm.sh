@@ -11,10 +11,8 @@ import { cn } from '@/lib/utils'
 
 export interface IssuePageData {
   issue: Issue
-  /** True when this is the newest live issue (served at /). */
   isCurrent: boolean
   previous?: Issue
-  /** Older issues, newest first, excluding `issue` and `previous`. */
   archive: Issue[]
   solvers: Record<string, Solver[]>
 }
@@ -27,9 +25,7 @@ export function IssuePage({ data }: { data: IssuePageData }) {
   useEffect(() => {
     try {
       setMe(localStorage.getItem('puzzles.osm.sh:name') ?? undefined)
-    } catch {
-      // fine
-    }
+    } catch {}
   }, [solvers])
 
   const state = (entry: Issue) => (entry.solution ? 'solved' : 'open')

@@ -1,6 +1,5 @@
 import type { Element, Root } from 'hast'
 
-/** Link Markdown images to their original files, preserving authored links. */
 export function linkAttachmentImages() {
   return (tree: Root) => {
     function visit(parent: Root | Element) {

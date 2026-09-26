@@ -2,8 +2,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import { loadIssuePage } from '@/server/issue-page.fn'
 import { IssuePage } from '@/components/issue/IssuePage'
 
-// The front page is this month's issue. Each issue also has a permanent
-// address at /issues/$id.
 export const Route = createFileRoute('/')({
   loader: () => loadIssuePage({ data: {} }),
   head: ({ loaderData }) => ({

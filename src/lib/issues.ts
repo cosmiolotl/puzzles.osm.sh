@@ -42,7 +42,6 @@ const MONTHS = [
   'December',
 ]
 
-/** `2026-09` → `2026.09` for the version rule. */
 export const versionOf = (issue: Issue) => issue.id.replace('-', '.')
 
 export const monthOf = (issue: Issue) => {

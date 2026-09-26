@@ -1,14 +1,10 @@
 import { splitFrontMatter, text } from './front-matter.ts'
 import type { Color, Puzzle } from './puzzles.ts'
 
-// Parses one chess puzzle file, public/puzzles/<slug>.md. Runs at build time
-// (the `?puzzle` import in vite.config.ts) and in scripts, never in the browser.
-
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
 const DATE = /^\d{4}-\d{2}-\d{2}$/
 const EXPLANATION = /^##\s+Explanation\s*$/im
 
-/** `a5 Qf3 c3` or a YAML list, as SAN moves. */
 function moves(value: unknown, field: string, file: string): string[] {
   const list = Array.isArray(value) ? value.map((m) => text(m, field, file)!) : (text(value, field, file) ?? '').split(/\s+/)
   return list.filter(Boolean)

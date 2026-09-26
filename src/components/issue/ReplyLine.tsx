@@ -12,10 +12,6 @@ interface ReplyLineProps {
 
 type Tone = 'plain' | 'minus'
 
-/*
-  The reply line: two prompts on one command line, then the verdict typed
-  back on the next line, the way a shell answers.
-*/
 export function ReplyLine({ issueId }: ReplyLineProps) {
   const [name, setName] = useState('')
   const [answer, setAnswer] = useState('')
@@ -43,9 +39,7 @@ export function ReplyLine({ issueId }: ReplyLineProps) {
       }
       try {
         localStorage.setItem(NAME_KEY, name.trim())
-      } catch {
-        // Storage is optional; the server has already received the answer.
-      }
+      } catch {}
       setResponse({ text: result.message, tone: 'plain' })
       setAnswer('')
     } catch {

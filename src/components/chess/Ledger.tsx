@@ -26,7 +26,6 @@ export function Ledger({ puzzle, plies, rejected, step, status, replayIndex, onR
     const hasReply = puzzle.line.length > i * 2 + 1
     const isActive = !solved && i === step
 
-    // Rejected attempts at this step sit above the open slot, struck through.
     for (const r of rejected.filter((r) => r.step === i)) {
       rows.push(<StruckRow key={r.id} rejected={r} />)
     }

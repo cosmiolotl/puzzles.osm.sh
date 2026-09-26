@@ -1,16 +1,10 @@
 import { splitFrontMatter, text } from './front-matter.ts'
 import type { Issue, IssueFigure, IssueFile } from './issues.ts'
 
-// Parses one issue folder: issues/<id>-<slug>/issue.md and solution.md.
-// Kept free of Vite APIs so scripts can use it with plain file reads.
-
 export interface IssueSource {
   issue: Issue
-  /** Full solution markdown, published once nonempty and the issue is live. */
   solution: string
-  /** Optional YYYY-MM-DD (UTC) before which the solution stays hidden. */
   solutionPublished?: string
-  /** Accepted answer spellings, a hint for manual review. */
   answers: string[]
 }
 
@@ -38,10 +32,6 @@ function filesOf(value: unknown, file: string): IssueFile[] | undefined {
   }))
 }
 
-/**
- * @param folder the folder name, e.g. `2026-09-minedknight`; its `YYYY-MM`
- *   prefix is the issue's permanent id.
- */
 export function parseIssueSource(folder: string, issueMd: string, solutionMd = ''): IssueSource {
   const id = FOLDER.exec(folder)?.[1]
   if (!id) throw new Error(`issues/${folder}: folder names look like 2026-09 or 2026-09-some-slug`)

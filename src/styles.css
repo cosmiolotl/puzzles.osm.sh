@@ -4,10 +4,6 @@
 @import '@fontsource/fira-code/latin-700.css';
 @import 'katex/dist/katex.min.css';
 
-/*
-  The osm.sh terminal, in daylight.
-  One monospace grid, hairline rules, navy ink, rose accent.
-*/
 :root {
   --ground: #f4f2ec;
   --ground-2: #ebe8df;

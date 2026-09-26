@@ -3,7 +3,6 @@
 // import this from anything a route renders.
 import { acceptedAnswers } from './issues'
 
-/** Lowercase, trim, collapse whitespace, drop a trailing period. */
 export function normalize(text: string): string {
   return text
     .toLowerCase()
@@ -14,7 +13,6 @@ export function normalize(text: string): string {
     .trim()
 }
 
-/** Also compare with all spaces and thousands separators removed. */
 function loose(text: string): string {
   return normalize(text).replace(/[\s,]/g, '')
 }

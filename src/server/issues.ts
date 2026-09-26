@@ -1,10 +1,6 @@
 import { todayISO, type Issue } from '@/lib/issues'
 import { parseIssueSource, type IssueSource } from '@/lib/issue-source'
 
-// Every issue folder under issues/, bundled into the server only. Import this
-// module from server function handlers, never from anything a route renders:
-// it holds unpublished statements, solutions, and answer keys.
-
 const issueFiles = import.meta.glob<string>('/issues/*/issue.md', { query: '?raw', import: 'default', eager: true })
 const solutionFiles = import.meta.glob<string>('/issues/*/solution.md', { query: '?raw', import: 'default', eager: true })
 
@@ -23,7 +19,6 @@ const issues = [...sources.values()].map((s) => s.issue)
 
 export const findIssue = (id: string): Issue | undefined => sources.get(id)?.issue
 
-/** Issues live today, newest first. */
 export function publishedIssues(today = todayISO()): Issue[] {
   return issues.filter((i) => i.published <= today).sort((a, b) => b.published.localeCompare(a.published))
 }
@@ -45,5 +40,4 @@ export function publishedSolution(issue: Issue, today = todayISO()): string {
   return source.solution
 }
 
-/** Accepted answer spellings from solution.md, for the reviewer's hint. */
 export const acceptedAnswers = (id: string): string[] | undefined => sources.get(id)?.answers

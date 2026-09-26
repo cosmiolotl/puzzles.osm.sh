@@ -34,14 +34,12 @@ export function Solve({ puzzle }: { puzzle: Puzzle }) {
     if (solved) markSolved(puzzle.slug)
   }, [solved, puzzle.slug])
 
-  // Opponent reply, a beat after the solver's correct move.
   useEffect(() => {
     if (status !== 'replying') return
     const t = setTimeout(() => dispatch({ type: 'reply' }), REPLY_DELAY)
     return () => clearTimeout(t)
   }, [status, step])
 
-  // Keys that work anywhere on the page except inside the command field.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const inField = e.target === commandRef.current

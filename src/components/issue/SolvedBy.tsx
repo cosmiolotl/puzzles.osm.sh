@@ -1,10 +1,6 @@
 import { useRef } from 'react'
 import type { Solver } from '@/server/issues.fn'
 
-/*
-  Names in solve order. Rows type in like ledger lines; the newest row is
-  the one the visitor just earned.
-*/
 export function SolvedBy({ solvers, highlight }: { solvers: Solver[]; highlight?: string }) {
   // Rows present at first paint sit still; only a row earned on this page types in.
   const initial = useRef<Set<string> | null>(null)

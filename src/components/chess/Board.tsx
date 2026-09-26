@@ -16,7 +16,6 @@ export interface BoardProps {
   targets?: { to: Square; capture: boolean }[]
   lastMove?: { from: Square; to: Square } | null
   tint?: Partial<Record<Square, Tint>>
-  /** Changing this value plays the reject shake. */
   shake?: number
   label: string
   onSquare?: (square: Square) => void
@@ -68,9 +67,6 @@ export function Board({
     return (sq as Square | undefined) ?? null
   }
 
-  // Pointer handling owns clicks: once a pointer is captured for dragging,
-  // the browser no longer delivers a click to the square, so selection is
-  // decided here. The button onClick only serves keyboard activation.
   const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {
     if (!movable || e.button !== 0) return
     const square = squareFromPoint(e.clientX, e.clientY)
