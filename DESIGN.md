@@ -164,7 +164,7 @@ This is osm.sh's terminal identity, a TUI served over SSH, rendered as a light t
 
 Density is that of a well-laid-out terminal: text sits at 16px on a 1.5 line, columns are measured in `ch`, and structure comes from rules and whitespace rather than containers. Color is used sparingly and semantically. Navy carries all text and the primary action; rose is the single accent and marks the cursor, the selection, the active row, and the identity badge; diff green and diff red exist only to carry plus and minus. Nothing is decorated; every color on screen means something.
 
-The build is code-led and stateful. Motion is reserved for state changes: a ledger line types in, a rejected move is struck and settles, a wrong reply flashes and settles, the board splits into before and after on solve. Pieces are SVG line drawings recolored to the palette so the board reads as ink on paper, not as an image embedded in the page. The monthly issue reads as release notes on the same grid: dated version rules head each issue, the statement and solution are prose set in the terminal's own measure with math in KaTeX, and the answer form is a command prompt.
+The build is code-led and stateful. Motion is reserved for state changes: a ledger move types in, a rejected move is struck and settles, a wrong reply flashes and settles, the board splits into before and after on solve. Pieces are SVG line drawings recolored to the palette so the board reads as ink on paper, not as an image embedded in the page. The monthly issue reads as release notes on the same grid: dated version rules head each issue, the statement and solution are prose set in the terminal's own measure with math in KaTeX, and the answer form is a command prompt.
 
 **Key Characteristics:**
 - One font, three weights in use (400, 500, and 700; 700 only as bold inside prose), no ligatures, 16px base.
@@ -178,17 +178,17 @@ The build is code-led and stateful. Motion is reserved for state changes: a ledg
 
 ## Colors
 
-A warm paper ground under deep navy ink, with dusty rose as the lone accent and a muted diff pair reserved for the ledger and the verdict.
+A warm paper ground under deep navy ink, with dusty rose as the lone accent and a muted diff pair reserved for the split view and the verdict.
 
 ### Primary
 - **Navy Ink** (`ink`): All body text, headings, the issue title, the primary button fill, and the status bar ground. This is osm.sh's terminal background, inverted for daylight.
 - **Dusty Rose** (`rose`): The accent. Text selection, the blinking cursor in the ledger, the selected-square ring, the `:` prompt, and the identity badge in the status bar (the puzzle slug on chess, the version number on an issue). Inherited from osm.sh's selection color.
 - **Rose Ink** (`rose-ink`): Rose deepened for text on the light ground: links, hovered breadcrumb and archive rules, focus rings, the input caret, the `>` prompts of the reply line, and the words `this month` in the current version rule. Rose itself does not meet contrast as text on ground; rose-ink does.
-- **Rose Wash** (`rose-wash`): Rose at paper strength. The active ledger row, the selected square, the last-move highlight (at 70% opacity over the square), and the visitor's own row in the solved-by list.
+- **Rose Wash** (`rose-wash`): Rose at paper strength. The current replay move in the ledger, the selected square, the last-move highlight (at 70% opacity over the square), and the visitor's own row in the solved-by list.
 
 ### Secondary
-- **Diff Plus** (`plus`) and **Plus Wash** (`plus-wash`): The `+` mark on ledger lines, the words `solved` and `solution` in rules, the `solution unlocked` note, a correct reply's verdict, the solved check in the chess archive, and the tint on squares a solver's piece arrived at in the after board.
-- **Diff Minus** (`minus`) and **Minus Wash** (`minus-wash`): The `−` mark, the struck rejected row (text and strike-through), a wrong reply's verdict, the reject and reply-wrong flash backgrounds, and the tint on squares a solver's piece left in the before board.
+- **Diff Plus** (`plus`) and **Plus Wash** (`plus-wash`): The words `solved` and `solution` in rules, the `solution unlocked` note, a correct reply's verdict, the solved check in the chess archive, and the tint on squares a solver's piece arrived at in the after board.
+- **Diff Minus** (`minus`) and **Minus Wash** (`minus-wash`): The struck rejected move (text and strike-through), a wrong reply's verdict, the reject and reply-wrong flash backgrounds, and the tint on squares a solver's piece left in the before board.
 
 ### Neutral
 - **Paper Ground** (`ground`): Page background and text on the inverted status bar and primary button.
@@ -203,7 +203,7 @@ A warm paper ground under deep navy ink, with dusty rose as the lone accent and 
 ### Named Rules
 **The One Accent Rule.** Rose is the only accent color. It marks selection, cursor, active state, and identity. It never decorates and never fills a large area larger than a badge or a row.
 
-**The Diff-Only Rule.** Green and red mean plus and minus, nothing else. They appear on ledger marks, square tints in the split view, the reject strike, the reply verdict, the `solved` state word, and status-bar tone. They are never used for buttons, badges, or generic success and error styling.
+**The Diff-Only Rule.** Green and red mean plus and minus, nothing else. They appear on square tints in the split view, the reject strike, the reply verdict, the `solved` state word, and status-bar tone. They are never used for buttons, badges, or generic success and error styling.
 
 **The Ink-On-Paper Rule.** Text is always `ink`, `ink-2`, or `ink-3` on `ground`, or `ground` on `ink`. No other text and background pairs exist except rose-ink links and the diff marks.
 
@@ -222,7 +222,7 @@ A warm paper ground under deep navy ink, with dusty rose as the lone accent and 
 - **Title** (500, 1.25rem/20px, 1.375): The issue title, an `h1` under the version rule. The largest text in the system and the only step above the 16px base; the previous issue's title steps down to 16px at 500.
 - **Headline** (500, 0.875rem/14px, 1.5): The chess puzzle title in the breadcrumb rule; the version number in a version rule; the status-bar badge.
 - **Body** (400, 1rem/16px, 1.5): The html base. Lists, comment lines, general text, the reply line's inputs.
-- **Ledger** (400, 1rem/16px, 1.7): Move ledger rows, tabular numerals, `nowrap`, on a `3ch 11ch 11ch auto` column grid.
+- **Ledger** (400, 1rem/16px, 1.7): Move ledger rows in SAN, tabular numerals, `nowrap`, on a `4ch 12ch 12ch auto` column grid.
 - **Prose** (400, 0.95rem/15.2px, 1.65): `.prose-mono`, the statement and solution markdown, and the explanation after a chess solve. Paragraphs are capped at 68ch; blocks are separated by 1em. Statement and solution markdown preserve single newlines as line breaks; blank lines separate paragraphs. Inside it: `strong` at 700, `em` italic, links `rose-ink` to `ink` on hover, `code` on `ground-2` with 0.3ch side padding, `pre` on `ground-2` with 12px by 16px padding and horizontal scroll, lists indented 3ch with `- ` as the bullet, blockquotes with a 1px `rule` left edge, 1.5ch inset, in `ink-2`, tables with 1px `rule` cell borders and 500-weight headers on `ground-2`, and `h1` to `h3` at 500 with 1.5em above.
 - **Math** (KaTeX, 1.08em of the prose size): Inline math sits in the line at 1.08em so its serifs match the monospace x-height. Display math is left-aligned with a 2ch indent, 1.25em above and below, and scrolls horizontally rather than wrapping; below `sm` it drops to 0.9em with no indent.
 - **Label** (400, 0.875rem/14px, 1): Status bar segments, buttons, breadcrumb, key hints, list metadata. Status-bar badge and `kbd` keys go to 500.
@@ -234,7 +234,7 @@ A warm paper ground under deep navy ink, with dusty rose as the lone accent and 
 
 **The Weight Ceiling Rule.** Chrome stops at 500: headings, titles, rules, buttons, badges, and keys are 400 or 500. Bold 700 is spent only where the terminal would spend it, as markdown `strong` inside prose (the author's emphasis in a statement or the `Answer:` in a solution). It never sets a heading, a title, or any part of the chrome.
 
-**The Terminal Prefix Rule.** Meta text carries its terminal prefix: `#` for prompts and comments, `$` for listed commands, `:` for the command field, `>` for the reply prompts, `…` for the opponent's reply, `×` for a rejected line.
+**The Terminal Prefix Rule.** Meta text carries its terminal prefix: `#` for prompts and comments, `$` for listed commands, `:` for the command field, `>` for the reply prompts, `…` for white's empty half of the first row when black starts, `×` for a rejected line.
 
 ## Layout
 
@@ -246,7 +246,7 @@ The board is sized by one custom property, `--cell`, computed from the viewport:
 
 The issue page is a single column capped at 104ch, laid out as release notes. Each issue is an `article` headed by a version rule; the current issue's title, statement, figure, files, and reply line sit in a 68ch column with 20px steps between blocks. Once a solution is unlocked, the solution and the solved-by list share a grid: one column below `lg`, and `minmax(0, 68ch) minmax(24ch, 1fr)` with a 40px gutter from `lg`, so the solvers sit beside the solution. The previous issue follows 48px below, unfolded into the same grid; older issues run on as a list of archive rules under an `# earlier` comment, 48px further down. Each issue closes with a signature rule 32px below its content.
 
-Text measures are in `ch`: 68ch for prose paragraphs and the ledger pane, 62ch for the chess explanation, 72ch for the chess archive, 104ch for the issue page. Ledger columns are `3ch 11ch 11ch auto` with an 8px gap. The chess archive list is `3ch 1fr auto` with a 12px gap and 12px row padding; the solved-by list is `3ch 1fr auto` with an 8px gap and no row padding.
+Text measures are in `ch`: 68ch for prose paragraphs and the ledger pane, 62ch for the chess explanation, 72ch for the chess archive, 104ch for the issue page. Ledger columns are `4ch 12ch 12ch auto` (number, white, black, note) with an 8px gap. The chess archive list is `3ch 1fr auto` with a 12px gap and 12px row padding; the solved-by list is `3ch 1fr auto` with an 8px gap and no row padding.
 
 Spacing follows Tailwind's 4px scale; the steps actually used are 4, 8, 12, 16, 20, 24, 32, 40, and 48px. Rules and hairlines are always 1px.
 
@@ -298,7 +298,7 @@ Two inputs exist, both borderless and transparent, each announced by a rose prom
 The terminal's bottom line, inverted and sticky. 14px, line-height 1, segments 36px tall with 12px horizontal padding, divided by 1px `ground`/20% rules. On a chess puzzle, left to right: the puzzle slug as a rose badge with `ink` text at 500 (hidden below `sm`), side to move, progress in tabular numerals, then a flexible message segment (`role="status"`, live), the `:` command field, and key hints (`kbd` at 500 in `ground`, labels at `ground`/70%; `lg` only). Below `lg` the message row wraps onto a second line under a hairline. On an issue: the version number as the rose badge (shown at every width), the state word, `N solved` in tabular numerals, and at the right `this month` in `ground`/70%, or `back to this month` with an underlined `ground` link when viewing an older issue. Message tone tints the text toward the diff pair on ink.
 
 ### Ledger (signature)
-A `role="list"` under the prompt, separated by a hairline above (and below once solved), 16px/1.7, tabular, `nowrap`. Every row is a `3ch 11ch 11ch auto` grid with `−` in `minus` before the square left and `+` in `plus` before the square reached, each with a 1.35em inline figurine. Solver rows are `ink`; reply rows are `ink-3` with `…` as their number. Open rows show `−` and `+` with `····` placeholders (0.1em tracking) in `ink-3`; the active open row carries a blinking `rose` cursor (0.6ch by 1em, 1s two-step). A rejected row is `minus` with the squares struck through, prefixed `×` and suffixed `not it` in `ink-2`; it flashes `minus-wash` and settles to 78% opacity over 900ms. After solve, rows become buttons: hover `ground-2`, the current replay step `rose-wash`, future steps at 35% opacity.
+A `role="list"` under the prompt, separated by a hairline above (and below once solved), 16px/1.7, tabular, `nowrap`. Moves are written in SAN, one full move per row on a `4ch 12ch 12ch auto` grid: the move number in `ink-3`, white's move, black's move, and a note column. Numbering starts at 1 from the puzzle position, not from the game's move number, so the ledger and the explanation prose count the same way; when black starts, white's half of the first row is `…` in `ink-3`. Every piece letter, pawns included, is a 1.35em inline figurine in the mover's color (`Nbxd7` reads as a knight then `bxd7`; `d8=Q` as a pawn, `d8=`, a queen). Castling stays text, and `+` and `#` keep their SAN meaning in the move's own tone, never `plus` or `minus`. Screen readers hear the move spoken (`knight b takes d7, check`). Solver moves are `ink`; replies are `ink-3`. Unplayed moves are `····` placeholders (0.1em tracking) in `ink-3`; the next move to be written, the solver's or the pending reply, holds a blinking `rose` cursor (0.6ch by 1em, 1s two-step). A rejected move gets its own row directly under the row it was meant for: `×` in the number column, the SAN in the solver's column under a 1px `minus` strike drawn across text and figurines alike, and `not it` in `ink-2` in the note column. The row is `minus`, flashes `minus-wash`, and settles to 78% opacity over 900ms. Each move types in on its own as it is played. After solve, every move is a button: hover `ground-2`, the current replay step `rose-wash`, later moves at 35% opacity.
 
 ### Board (signature)
 An `inline-grid` of `2ch` rank labels and a `1.6em` file row around an 8 by 8 grid of `--cell` squares inside a 1px `rule` border. Squares alternate `square-dark` and `square-light`. The last move tints `rose-wash` at 70%; the selected square fills `rose-wash` with a 2px inset `rose` ring; legal targets show the dot or capture ring. In the split view, `minus-wash` tints vacated squares on the before board, `plus-wash` tints reached squares on the after board, and `ink` at 10% marks the opponent's squares. Pieces are absolutely positioned and translate between squares in 200ms with the expo ease; a rejected move shakes the board 3px each way over 240ms. Squares are focusable buttons with arrow-key movement.
@@ -310,7 +310,7 @@ Every issue is headed by a `.rule-line` at 14px that reads like a dated release:
 The answer form as a command prompt. A `#` comment line in `ink-3` states what to reply with (and changes its wording once the visitor has solved, or once the solution is public). Beneath it, one row between two hairlines: `> name` and `> answer` with rose-ink prompts, divided by a vertical hairline from `sm` and stacked with a hairline between them below, the primary `sm` submit key at the row's right end. The verdict types onto the next line as a `role="status"` at 14px: `plus` for a correct answer, `minus` for a wrong one, `ink-3` otherwise, with a reserved 1.5em so the page does not jump. A wrong answer flashes the whole row `minus-wash` and settles over 900ms while the answer text is reselected for another try; a correct one records the name and types the solver into the solved-by list in place.
 
 ### Solved-By List (signature)
-A `.rule-line` labelled `solved by` with the count in `ink-2` tabular numerals, then an ordered list at 14px on a `3ch 1fr auto` grid with an 8px gap: zero-padded rank in `ink-3`, name in `ink` (truncated), date in `ink-3`. Rows bleed 4px past the column. Rows present at first paint sit still; only a row earned on this page types in with the ledger's `ledger-in`. The visitor's own row (matched by the name saved in this browser) is washed `rose-wash`, the same tone as the active ledger row. Empty state is a single `ink-3` line: `no one yet. be the first.` It is never a table, a leaderboard page, or a badge count.
+A `.rule-line` labelled `solved by` with the count in `ink-2` tabular numerals, then an ordered list at 14px on a `3ch 1fr auto` grid with an 8px gap: zero-padded rank in `ink-3`, name in `ink` (truncated), date in `ink-3`. Rows bleed 4px past the column. Rows present at first paint sit still; only a row earned on this page types in with the ledger's `ledger-in`. The visitor's own row (matched by the name saved in this browser) is washed `rose-wash`, the same tone as the current replay move in the ledger. Empty state is a single `ink-3` line: `no one yet. be the first.` It is never a table, a leaderboard page, or a badge count.
 
 ### Motion
 State changes only, all on `--ease-out-expo` (`cubic-bezier(0.16, 1, 0.3, 1)`): color hovers 150ms, piece travel 200ms, ledger line type-in 220ms (clip-path from the left; reused by newly earned solved-by rows), board shake 240ms, split and explanation entrance 360ms (6px rise and fade). The struck row and the wrong reply are the two long beats: 900ms each, holding `minus-wash` for the first 40%; the struck row settles to 78% opacity, the reply row settles to transparent. The opponent replies after a 420ms pause. `prefers-reduced-motion` collapses every animation to 1ms and removes piece transitions.
@@ -321,7 +321,7 @@ State changes only, all on `--ease-out-expo` (`cubic-bezier(0.16, 1, 0.3, 1)`): 
 - **Do** set everything in Fira Code, ligatures off, 16px base; measure columns and widths in `ch`.
 - **Do** draw structure with 1px `rule` hairlines and `.rule-line` labels; frame with a border only where a pane must align to something (the desktop ledger pane) or where content is foreign to the grid (a figure, a table cell).
 - **Do** keep rose for selection, cursor, active state, and identity, and use `rose-ink` whenever rose must be read as text on the ground.
-- **Do** keep green and red as diff marks: `−` and `+`, vacated and reached, rejected and solved, wrong and correct.
+- **Do** keep green and red as diff marks: vacated and reached, rejected and solved, wrong and correct.
 - **Do** pair every color state with a second carrier: a mark, a ring, a strike, a label, or text.
 - **Do** animate only on state change, 150 to 360ms with `--ease-out-expo` (900ms for a rejection settling), and honor `prefers-reduced-motion`.
 - **Do** theme the browser: rose selection, rose-ink caret and focus ring, rule-colored thin scrollbar, `color-scheme: light`, `theme-color` set to the ground.

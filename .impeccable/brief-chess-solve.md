@@ -14,7 +14,7 @@ Unresolved (user's, not the builder's): puzzle data format beyond this route's n
 
 ## Direction contract
 
-THESIS: A positional transformation is a diff. Every move the solver plays writes a minus line (square left) and a plus line (square reached) into a ledger beside the board; the solved puzzle shows before and after side by side with changed squares tinted. It refuses the category default: a chessboard image with a move list and a green "correct" toast.
+THESIS: A positional transformation is a diff. The ledger beside the board records the line in SAN, move and reply on one row with figurines in place of piece letters (changed 2026-10-05 at the owner's request from minus and plus square lines); the solved puzzle shows before and after side by side with changed squares tinted, and that split carries the diff. It refuses the category default: a chessboard image with a move list and a green "correct" toast.
 
 OWN-WORLD: osm.sh's terminal grammar rendered light. One monospace character grid in Fira Code; box-drawing rules draw every frame; the ink is osm.sh navy on a warm light ground; rose is the single accent for selection and the active state; diff green and diff red carry plus and minus only. With all content removed the page is a light terminal window with a bottom status bar.
 

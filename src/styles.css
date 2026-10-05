@@ -315,9 +315,10 @@
     margin-top: 1.5em;
   }
 
-  /* Ledger line entrance: types in from the left. */
+  /* Ledger line entrance: types in from the left. Not held after it ends, so a
+     dimmed replay move keeps its own opacity. */
   .ledger-in {
-    animation: ledger-in 220ms var(--ease-out-expo) both;
+    animation: ledger-in 220ms var(--ease-out-expo) backwards;
   }
   @keyframes ledger-in {
     from {

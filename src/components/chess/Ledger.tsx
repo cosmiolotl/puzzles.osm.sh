@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
-import type { Ply, Rejected, Status } from '@/lib/solve'
-import type { Puzzle } from '@/lib/puzzles'
-import { pieceSrc } from '@/lib/glyphs'
+import type { PieceSymbol, Ply, Rejected, Status } from '@/lib/solve'
+import type { Color, Puzzle } from '@/lib/puzzles'
+import { pieceSrc, PIECE_NAME } from '@/lib/glyphs'
 import { cn } from '@/lib/utils'
 
 interface LedgerProps {
@@ -14,54 +14,59 @@ interface LedgerProps {
   onReplay: (index: number) => void
 }
 
-const total = (p: Puzzle) => Math.ceil(p.line.length / 2)
+// Move number, white's move, black's move, note. Every cell pads 4px so washes
+// bleed past the text; the row pulls back by the same amount.
+const ROW = 'grid grid-cols-[4ch_12ch_12ch_auto] justify-start gap-x-2 -mx-1 tabular-nums whitespace-nowrap'
 
 export function Ledger({ puzzle, plies, rejected, step, status, replayIndex, onReplay }: LedgerProps) {
   const solved = status === 'solved'
+  // Black to move leaves white's half of the first row empty: 1. … a5.
+  const offset = puzzle.side === 'b' ? 1 : 0
+  const rowCount = Math.ceil((puzzle.line.length + offset) / 2)
+  const activeRow = Math.floor((step * 2 + offset) / 2)
+  const cursorAt = solved ? -1 : plies.length
   const rows: ReactNode[] = []
 
-  for (let i = 0; i < total(puzzle); i++) {
-    const solverPly = plies.find((p) => p.step === i && p.by === 'solver')
-    const replyPly = plies.find((p) => p.step === i && p.by === 'reply')
-    const hasReply = puzzle.line.length > i * 2 + 1
-    const isActive = !solved && i === step
-
-    for (const r of rejected.filter((r) => r.step === i)) {
-      rows.push(<StruckRow key={r.id} rejected={r} />)
-    }
-
-    if (solverPly) {
-      const idx = plies.indexOf(solverPly) + 1
-      rows.push(
-        <PlyRow
-          key={solverPly.id}
-          ply={solverPly}
-          number={`${i + 1}.`}
-          shown={!solved || idx <= replayIndex}
-          active={solved && idx === replayIndex}
-          onClick={solved ? () => onReplay(idx) : undefined}
-        />,
-      )
-    } else if (!solved) {
-      rows.push(<OpenRow key={`open-${i}`} number={`${i + 1}.`} active={isActive} />)
-    }
-
-    if (hasReply) {
-      if (replyPly) {
-        const idx = plies.indexOf(replyPly) + 1
-        rows.push(
-          <PlyRow
-            key={replyPly.id}
-            ply={replyPly}
-            number="…"
-            reply
-            shown={!solved || idx <= replayIndex}
-            active={solved && idx === replayIndex}
-            onClick={solved ? () => onReplay(idx) : undefined}
-          />,
+  for (let r = 0; r < rowCount; r++) {
+    const cells = [0, 1].map((c) => {
+      const k = r * 2 + c - offset
+      if (k < 0) {
+        return (
+          <span key="skip" aria-hidden="true" className="px-1 text-ink-3">
+            …
+          </span>
         )
-      } else if (!solved) {
-        rows.push(<OpenRow key={`open-reply-${i}`} number="…" reply />)
+      }
+      if (k >= puzzle.line.length) return <span key="end" />
+      const reply = k % 2 === 1
+      const ply = plies[k]
+      if (ply) {
+        return (
+          <MoveCell
+            key={ply.id}
+            ply={ply}
+            reply={reply}
+            shown={!solved || k < replayIndex}
+            active={solved && k + 1 === replayIndex}
+            onClick={solved ? () => onReplay(k + 1) : undefined}
+          />
+        )
+      }
+      return <OpenCell key={`open-${k}`} cursor={k === cursorAt} reply={reply} />
+    })
+
+    rows.push(
+      <div key={`row-${r}`} role="listitem" className={ROW}>
+        <span className="px-1 text-ink-3">{r + 1}.</span>
+        {cells}
+        <span />
+      </div>,
+    )
+
+    // A rejected try sits under the row it was meant for, in the solver's column.
+    if (!solved && r === activeRow) {
+      for (const rej of rejected.filter((x) => x.step === step)) {
+        rows.push(<StruckRow key={rej.id} rejected={rej} column={offset} />)
       }
     }
   }
@@ -88,7 +93,7 @@ export function Ledger({ puzzle, plies, rejected, step, status, replayIndex, onR
   )
 }
 
-function Figurine({ color, piece }: { color: Ply['color']; piece: Ply['piece'] }) {
+function Figurine({ color, piece }: { color: Color; piece: PieceSymbol }) {
   return (
     <img
       src={pieceSrc(color, piece)}
@@ -99,103 +104,105 @@ function Figurine({ color, piece }: { color: Ply['color']; piece: Ply['piece'] }
   )
 }
 
-function PlyRow({
+/** SAN with a figurine for every piece letter, pawns included: Nbxd7, d8=Q. */
+function San({ san, color }: { san: string; color: Color }) {
+  if (san.startsWith('O-O')) return <>{san}</>
+  // Splitting on a capture group puts the piece letters at the odd indices.
+  const parts = (/^[KQRBN]/.test(san) ? san : `P${san}`).split(/([KQRBNP])/)
+  return (
+    <>
+      {parts.map((part, i) =>
+        i % 2 ? <Figurine key={i} color={color} piece={part.toLowerCase() as PieceSymbol} /> : part,
+      )}
+    </>
+  )
+}
+
+/** SAN as a screen reader should say it: Nbxd7+ is "knight b takes d7, check". */
+function spoken(san: string): string {
+  const piece = (letter: string) => PIECE_NAME[letter.toLowerCase() as PieceSymbol]
+  return san
+    .replace(/^O-O-O/, 'castles queenside')
+    .replace(/^O-O/, 'castles kingside')
+    .replace(/^([KQRBN])/, (_, p: string) => `${piece(p)} `)
+    .replace('x', ' takes ')
+    .replace(/=([QRBN])/, (_, p: string) => ` promotes to ${piece(p)}`)
+    .replace(/\+$/, ', check')
+    .replace(/#$/, ', mate')
+}
+
+function MoveCell({
   ply,
-  number,
-  reply = false,
+  reply,
   shown,
   active,
   onClick,
 }: {
   ply: Ply
-  number: string
-  reply?: boolean
+  reply: boolean
   shown: boolean
   active: boolean
   onClick?: () => void
 }) {
-  const Row = onClick ? 'button' : 'div'
+  const Cell = onClick ? 'button' : 'span'
   return (
-    <Row
+    <Cell
       type={onClick ? 'button' : undefined}
-      role="listitem"
       onClick={onClick}
       aria-current={active ? 'step' : undefined}
       className={cn(
-        'ledger-in grid grid-cols-[3ch_11ch_11ch_auto] justify-start gap-x-2 w-full text-left tabular-nums whitespace-nowrap px-1 -mx-1',
+        'ledger-in px-1 text-left',
         reply ? 'text-ink-3' : 'text-ink',
         !shown && 'opacity-35',
         active && 'bg-rose-wash',
         onClick && 'hover:bg-ground-2 transition-colors duration-150 cursor-pointer',
       )}
     >
-      <span className="text-ink-3">{number}</span>
-      <span>
-        <span className={cn(reply ? 'text-ink-3' : 'text-minus')}>&minus;</span>{' '}
-        <Figurine color={ply.color} piece={ply.piece} />
-        {ply.from}
+      <span aria-hidden="true">
+        <San san={ply.san} color={ply.color} />
       </span>
-      <span>
-        <span className={cn(reply ? 'text-ink-3' : 'text-plus')}>+</span>{' '}
-        <Figurine color={ply.color} piece={ply.promotion ?? ply.piece} />
-        {ply.to}
-      </span>
-      <span className="text-ink-3">
-        {ply.captured && (
-          <>
-            &times; <Figurine color={ply.color === 'w' ? 'b' : 'w'} piece={ply.captured} />
-          </>
-        )}
-        {ply.rook && (
-          <>
-            &nbsp;<span className="text-minus">&minus;</span> <Figurine color={ply.color} piece="r" />
-            {ply.rook.from} <span className="text-plus">+</span> <Figurine color={ply.color} piece="r" />
-            {ply.rook.to}
-          </>
-        )}
-        <span className="sr-only">{ply.san}</span>
-      </span>
-    </Row>
+      <span className="sr-only">{spoken(ply.san)}</span>
+    </Cell>
   )
 }
 
-function OpenRow({ number, active = false, reply = false }: { number: string; active?: boolean; reply?: boolean }) {
+function OpenCell({ cursor, reply }: { cursor: boolean; reply: boolean }) {
+  if (cursor) {
+    return (
+      <span className="px-1">
+        <span aria-hidden="true" className="cursor-blink inline-block w-[0.6ch] h-[1em] align-[-0.15em] bg-rose" />
+        <span className="sr-only">{reply ? 'reply coming' : 'your move'}</span>
+      </span>
+    )
+  }
   return (
-    <div
-      role="listitem"
-      aria-label={active ? 'your move' : reply ? 'reply, not yet played' : 'not yet played'}
-      className="grid grid-cols-[3ch_11ch_11ch_auto] justify-start gap-x-2 tabular-nums whitespace-nowrap text-ink-3 px-1 -mx-1"
-    >
-      <span>{number}</span>
-      <span aria-hidden="true">
-        &minus; <span className="tracking-[0.1em]">····</span>
-        {active && <span className="cursor-blink inline-block w-[0.6ch] h-[1em] align-[-0.15em] bg-rose ml-1" />}
+    <span className="px-1 text-ink-3">
+      <span aria-hidden="true" className="tracking-[0.1em]">
+        ····
       </span>
-      <span aria-hidden="true">
-        + <span className="tracking-[0.1em]">····</span>
-      </span>
-      <span />
-    </div>
+      <span className="sr-only">not yet played</span>
+    </span>
   )
 }
 
-function StruckRow({ rejected }: { rejected: Rejected }) {
+function StruckRow({ rejected, column }: { rejected: Rejected; column: number }) {
+  const move = (
+    <span className="px-1">
+      <span className="relative inline-block after:absolute after:inset-x-0 after:top-1/2 after:h-px after:bg-minus/80">
+        <San san={rejected.san} color={rejected.color} />
+      </span>
+    </span>
+  )
   return (
     <div
       role="listitem"
       aria-label={`${rejected.san}, not it`}
-      className="ledger-struck grid grid-cols-[3ch_11ch_11ch_auto] justify-start gap-x-2 tabular-nums whitespace-nowrap text-minus px-1 -mx-1"
+      className={cn(ROW, 'ledger-struck text-minus')}
     >
-      <span>&times;</span>
-      <span>
-        &minus; <Figurine color={rejected.color} piece={rejected.piece} />
-        <span className="line-through decoration-minus/80">{rejected.from}</span>
-      </span>
-      <span>
-        + <Figurine color={rejected.color} piece={rejected.piece} />
-        <span className="line-through decoration-minus/80">{rejected.to}</span>
-      </span>
-      <span className="text-ink-2">not it</span>
+      <span className="px-1">&times;</span>
+      {column === 0 ? move : <span />}
+      {column === 1 ? move : <span />}
+      <span className="px-1 text-ink-2">not it</span>
     </div>
   )
 }
