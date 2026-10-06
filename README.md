@@ -1,4 +1,4 @@
-# puzzles.osm.sh
+<a href="https://puzzles.osm.sh"><img src=".github/banner.svg" alt="puzzles.osm.sh"></a>
 
 An extensible repository that is currently used to host my puzzles website. Currently supports creation monthly issues and chess puzzles. Monthly issues were inspired by Jane Street's monthly puzzle. Chess puzzles are intended to contain positional ideas and key transformations that create winning advantages (ideally without material gain).
 
