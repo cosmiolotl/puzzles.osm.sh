@@ -1,8 +1,6 @@
 # puzzles.osm.sh
 
-Claude generated this README for me but it was bad so I rewrote it.
-
-Currently consists of two sets of puzzles, a monthly issue with various puzzle types and chess puzzles. Chess puzzles are positional ideas, ways to transform the position in a way that creates a winning advantage (without material gain). 
+An extensible repository that is currently used to host my puzzles website. Currently supports creation monthly issues and chess puzzles. Monthly issues were inspired by Jane Street's monthly puzzle. Chess puzzles are intended to contain positional ideas and key transformations that create winning advantages (ideally without material gain).
 
 ## Run
 
@@ -15,7 +13,7 @@ bun run deploy       # build + wrangler deploy (Cloudflare Workers)
 
 ## Production
 
-Live at https://puzzles.osm.sh on a Cloudflare worker. This application was designed for Cloudflare Workers deployed using `wrangler`. Deploy Worker updates with `bun run deploy` and apply  database migrations with `bun run db:migrate`.
+Live at https://puzzles.osm.sh on a Cloudflare worker. This application was designed for Cloudflare Workers deployed using `wrangler`. Deploy Worker updates with `bun run deploy` and apply database migrations with `bun run db:migrate`.
 
 The production `REVIEW_KEY` is stored as a Cloudflare secret. `/review` uses the same key in `.dev.vars` at initial deployment. Change it with `bunx wrangler secret put REVIEW_KEY`.
 
@@ -46,7 +44,7 @@ answers:
 ---
 ```
 
-Set this up with:
+Puzzles and solutions will become visible when their `published` date is reached, and submissions will be open for any puzzle that has no visible solution. You can set this up for yourself with:
 
 ```sh
 bunx wrangler d1 create puzzles     # paste the id into wrangler.jsonc
@@ -55,7 +53,7 @@ bun run db:migrate                  # remote
 ```
 
 ## Reviewing submissions
-You can review submissions at /review by entering the review key you set during setup. If you haven't done so, you can create one by copying `.dev.vars.example` into `.dev.vars.` and running this to sync it to your worker:
+You can review submissions at `/review` by entering the review key you set during setup. If you haven't done so, you can create one by copying `.dev.vars.example` into `.dev.vars` and running this to sync it to your worker:
 
 ```sh
 bunx wrangler secret put REVIEW_KEY  # paste your key at the prompt
